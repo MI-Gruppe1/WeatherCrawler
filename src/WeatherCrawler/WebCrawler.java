@@ -32,6 +32,7 @@ public class WebCrawler {
 		json = this.readJsonFromUrl(url);
 	}
 
+
 	/* Read all from Reader rd and put it to one String. Return whole String */
 	private String readAll(Reader rd) throws IOException {
 		StringBuilder sb = new StringBuilder();
