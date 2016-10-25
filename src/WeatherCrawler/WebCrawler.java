@@ -33,7 +33,9 @@ public class WebCrawler {
 		json = this.readJsonFromUrl(url);
 		System.out.println("HERE IS WHAT WE GET:");
 		System.out.println(json.toString());
-		dataArray = json.getJSONObject("network").getJSONArray("stations");
+		dataArray = json.getJSONObject("weather").getJSONArray("weather.id"); 
+			
+			
 	}
 
 	/*Read all from Reader rd and put it to one String. Return whole String */
