@@ -24,19 +24,15 @@ import com.mysql.jdbc.Connection;
 import com.mysql.jdbc.Driver;
 
 public class WebCrawler {
-	
+
 	private JSONObject json = null;
-	private JSONArray dataArray = null;
-	
+
 	public WebCrawler(String url) throws JSONException, IOException {
 		super();
 		json = this.readJsonFromUrl(url);
-		System.out.println("HERE IS WHAT WE GET:");
-		System.out.println(json.toString());
-		dataArray = json.getJSONObject("network").getJSONArray("stations");
 	}
 
-	/*Read all from Reader rd and put it to one String. Return whole String */
+	/* Read all from Reader rd and put it to one String. Return whole String */
 	private String readAll(Reader rd) throws IOException {
 		StringBuilder sb = new StringBuilder();
 		int cp;
@@ -46,8 +42,11 @@ public class WebCrawler {
 		return sb.toString();
 	}
 
-	/*Create Readers to read from the URL. URL is an inputparameter. Create form the returned String (Methode: readAll) one JSONObject.
-	 * JSONObject ist returned */
+	/*
+	 * Create Readers to read from the URL. URL is an inputparameter. Create
+	 * form the returned String (Methode: readAll) one JSONObject. JSONObject
+	 * ist returned
+	 */
 	private JSONObject readJsonFromUrl(String url) throws IOException, JSONException {
 		InputStream is = new URL(url).openStream();
 		try {
@@ -55,37 +54,49 @@ public class WebCrawler {
 			String jsonText = readAll(rd);
 			JSONObject json = new JSONObject(jsonText);
 			return json;
-		} finally {  //finally will always execute, if an try block exists. Doesnt matter if there is an Exception or not.
+		} finally { // finally will always execute, if an try block exists.
+					// Doesnt matter if there is an Exception or not.
 			is.close();
 		}
 	}
 
-	/*Input-Parameter is JSONArray. Iterate through the array and print needed Information  */
-	public void persistData() throws JSONException, InstantiationException, IllegalAccessException, ClassNotFoundException, SQLException {
-		
+	/*
+	 * Input-Parameter is JSONArray. Iterate through the array and print needed
+	 * Information
+	 */
+	public void persistData()
+			throws JSONException, InstantiationException, IllegalAccessException, ClassNotFoundException, SQLException {
+		System.out.println("Entering persits data");
 		Class.forName("com.mysql.jdbc.Driver").newInstance();
 		Connection connection = (Connection) DriverManager.getConnection(
-		    "jdbc:mysql://mysqldb:3306/mi",
-		    "mi",
-		    "miws16"
-		);
-		
-		String query = " insert into crawledData (station_id, station_name, free_bikes, information_timestamp, latitude, longitude)" +
-		               " values (?, ?, ?, ?, ?, ?)";
-			      
-		for (int i = 0; i < dataArray.length(); i++) {
-			PreparedStatement preparedStmt = connection.prepareStatement(query);
-		      preparedStmt.setString(1, dataArray.getJSONObject(i).get("id").toString());
-		      preparedStmt.setString(2, dataArray.getJSONObject(i).get("name").toString());
-		      preparedStmt.setString(3, dataArray.getJSONObject(i).get("free_bikes").toString());
-		      preparedStmt.setString(4, dataArray.getJSONObject(i).get("timestamp").toString());
-		      preparedStmt.setString(5, dataArray.getJSONObject(i).get("latitude").toString());
-		      preparedStmt.setString(6, dataArray.getJSONObject(i).get("longitude").toString());      
+				//Original statement
+				// "jdbc:mysql://mysqldb:3306/mi",
+				// "mi",
+				// "miws16"
+				"jdbc:mysql://localhost:3306/mi", "root", "mi-gruppe1");
 
-		      // execute the preparedstatement
-		      preparedStmt.execute();
-		}
-		
+		String query = " insert into crawledWeatherData (weatherIcon, weatherDesc, weatherDescDetail, stationName, temperature, humidity, pressure, windDeg, windSpeed)"
+				+ " values (?, ?, ?, ?, ?, ?, ?, ?, ?)";
+
+		PreparedStatement preparedStmt = connection.prepareStatement(query);
+		JSONObject desc = json.getJSONArray("weather").getJSONObject(0);
+		preparedStmt.setString(1, desc.get("icon").toString());
+		preparedStmt.setString(2, desc.get("main").toString());
+		preparedStmt.setString(3, desc.get("description").toString());
+		preparedStmt.setString(4, json.getString("name"));
+		JSONObject main = json.getJSONObject("main");
+		preparedStmt.setString(5, main.get("temp").toString());
+		preparedStmt.setString(6, main.get("humidity").toString());
+		preparedStmt.setString(7, main.get("pressure").toString());
+		JSONObject wind = json.getJSONObject("wind");
+		preparedStmt.setString(8, wind.get("deg").toString());
+		preparedStmt.setString(9, wind.get("speed").toString());
+
+		System.out.println(preparedStmt);
+		// execute the preparedstatement
+		preparedStmt.execute();
+
 		connection.close();
+		System.out.println("Done");
 	}
 }
