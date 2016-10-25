@@ -31,6 +31,8 @@ public class WebCrawler {
 	public WebCrawler(String url) throws JSONException, IOException {
 		super();
 		json = this.readJsonFromUrl(url);
+		System.out.println("HERE IS WHAT WE GET:");
+		System.out.println(json.toString());
 		dataArray = json.getJSONObject("network").getJSONArray("stations");
 	}
 

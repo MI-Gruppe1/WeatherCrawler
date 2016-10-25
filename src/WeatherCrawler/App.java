@@ -25,7 +25,7 @@ public class App extends TimerTask {
 	public void run(){
 		WebCrawler crawler;
 		try {
-			crawler = new WebCrawler("http://api.citybik.es/v2/networks/stadtrad?fields=stations");
+			crawler = new WebCrawler("http://api.openweathermap.org/data/2.5/weather?id=2911288&appid=92b7bce4aa80a16d6e28c89cbac02736&units=metric");
 			crawler.persistData();	
 		} catch (Exception e) {
 			// TODO Auto-generated catch block
