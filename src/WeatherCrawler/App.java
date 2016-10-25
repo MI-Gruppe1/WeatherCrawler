@@ -29,7 +29,7 @@ public class App extends TimerTask {
 			crawler.persistData();	
 		} catch (Exception e) {
 			// TODO Auto-generated catch block
-			MailNotification.sendMail(e);
+			// MailNotification.sendMail(e);
 		} 
 			
 	}
