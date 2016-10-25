@@ -67,7 +67,7 @@ public class WebCrawler {
 	 */
 	public void persistData()
 			throws JSONException, InstantiationException, IllegalAccessException, ClassNotFoundException, SQLException {
-		System.out.println("Entering persits data");
+
 		Class.forName("com.mysql.jdbc.Driver").newInstance();
 		Connection connection = (Connection) DriverManager.getConnection(
 				//Original statement
@@ -93,7 +93,6 @@ public class WebCrawler {
 		preparedStmt.setString(8, wind.get("deg").toString());
 		preparedStmt.setString(9, wind.get("speed").toString());
 
-		System.out.println(preparedStmt);
 		// execute the preparedstatement
 		preparedStmt.execute();
 

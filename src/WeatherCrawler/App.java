@@ -28,6 +28,7 @@ public class App extends TimerTask {
 			crawler = new WebCrawler("http://api.openweathermap.org/data/2.5/weather?id=2911288&appid=92b7bce4aa80a16d6e28c89cbac02736&units=metric");
 			crawler.persistData();	
 		} catch (Exception e) {
+			System.out.println(e);
 			// TODO Auto-generated catch block
 			// MailNotification.sendMail(e);
 		} 
