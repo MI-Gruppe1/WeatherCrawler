@@ -78,6 +78,12 @@ public class WebCrawler {
 		String query = " insert into crawledWeatherData (weatherIcon, weatherDesc, weatherDescDetail, stationName, temperature, humidity, pressure, windDeg, windSpeed)"
 				+ " values (?, ?, ?, ?, ?, ?, ?, ?, ?)";
 
+		// TODO: Nen timestamp muss noch eingefügt werden
+		
+		// Schnitstelle:
+		// getCurrentWeather
+		// getTemperatureAtSpecificTime
+		// getPersipitationAtSpecificTime
 		PreparedStatement preparedStmt = connection.prepareStatement(query);
 		JSONObject desc = json.getJSONArray("weather").getJSONObject(0);
 		preparedStmt.setString(1, desc.get("icon").toString());
