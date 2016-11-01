@@ -24,13 +24,12 @@ public class MailNotification {
 			    email.setDebug(true);
 			    email.setSmtpPort(SMTP_PORT);
 			    email.setSSLOnConnect(true);
-				email.addTo("a.loeffler1024@googlemail.com");
-				email.setFrom(USERNAME, "StadtCrawlerService");
+				email.addTo("mi.mailnotification@googlemail.com");
+				email.setFrom(USERNAME, "WeatherCrawlerService");
 			    email.setSubject("Exception");
 			    email.setMsg(sw.toString());
 			    email.send();
 			} catch (EmailException e1) {
-				// TODO Auto-generated catch block
 				e1.printStackTrace();
 			}
 	  }

@@ -55,8 +55,7 @@ public class WebCrawler {
 			String jsonText = readAll(rd);
 			JSONObject json = new JSONObject(jsonText);
 			return json;
-		} finally { // finally will always execute, if an try block exists.
-					// Doesnt matter if there is an Exception or not.
+		} finally {
 			is.close();
 		}
 	}
@@ -97,6 +96,6 @@ public class WebCrawler {
 		preparedStmt.execute();
 
 		connection.close();
-		System.out.println("Done");
+		System.out.println("Success");
 	}
 }
