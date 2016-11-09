@@ -1,14 +1,11 @@
 /*
- * Author: Andreas Loeffler
- * E-Mail: andreas.loeffler@haw-hamburg.de 
+ * Author: Jan-Peter Petersen & Johannes Berger
  */
 
 package WeatherCrawler;
 
-import java.sql.SQLException;
 import java.util.Timer;
 import java.util.TimerTask;
-import org.json.JSONException;
 
 public class App extends TimerTask {
 
@@ -30,7 +27,7 @@ public class App extends TimerTask {
 			crawler.persistData();
 		} catch (Exception e) {
 			System.out.println(e);
-//			MailNotification.sendMail(e);
+			MailNotification.sendMail(e);
 		}
 
 	}

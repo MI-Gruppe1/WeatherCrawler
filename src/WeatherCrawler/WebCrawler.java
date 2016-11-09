@@ -16,12 +16,12 @@ import java.sql.DriverManager;
 import java.sql.PreparedStatement;
 import java.sql.SQLException;
 
-import org.json.JSONArray;
 import org.json.JSONException;
 import org.json.JSONObject;
 
 import com.mysql.jdbc.Connection;
-import com.mysql.jdbc.Driver;
+
+import java.util.Date;
 
 public class WebCrawler {
 
@@ -73,17 +73,17 @@ public class WebCrawler {
 				// "jdbc:mysql://mysqldb:3306/mi",
 				// "mi",
 				// "miws16"
-				"jdbc:mysql://localhost:3306/mi", "root", "mi-gruppe1");
+				"jdbc:mysql://172.17.0.1:3307/mi", "root", "mi-gruppe1");
 
-		String query = " insert into crawledWeatherData (weatherIcon, weatherDesc, weatherDescDetail, stationName, temperature, humidity, pressure, windDeg, windSpeed)"
-				+ " values (?, ?, ?, ?, ?, ?, ?, ?, ?)";
-
-		// TODO: Nen timestamp muss noch eingefügt werden
+		String query = " insert into crawledWeatherData (weatherIcon, weatherDesc, weatherDescDetail, stationName, temperature, humidity, pressure, windDeg, windSpeed, dateTime)"
+				+ " values (?, ?, ?, ?, ?, ?, ?, ?, ?, ?)";
 		
 		// Schnitstelle:
-		// getCurrentWeather
-		// getTemperatureAtSpecificTime
-		// getPersipitationAtSpecificTime
+		// 
+		// GET TemperatureAtSpecificTime
+		// GET PrecipitationAtSpecificTime
+		// GET CurrentWeather
+		// POST CurrentWeater
 		PreparedStatement preparedStmt = connection.prepareStatement(query);
 		JSONObject desc = json.getJSONArray("weather").getJSONObject(0);
 		preparedStmt.setString(1, desc.get("icon").toString());
@@ -97,6 +97,8 @@ public class WebCrawler {
 		JSONObject wind = json.getJSONObject("wind");
 		preparedStmt.setString(8, wind.get("deg").toString());
 		preparedStmt.setString(9, wind.get("speed").toString());
+		preparedStmt.setString(10, String.valueOf(new Date().getTime()));
+		
 
 		// execute the preparedstatement
 		preparedStmt.execute();
