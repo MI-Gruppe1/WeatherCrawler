@@ -27,7 +27,7 @@ public class App extends TimerTask {
 			crawler.persistData();
 		} catch (Exception e) {
 			System.out.println(e);
-			MailNotification.sendMail(e);
+			// MailNotification.sendMail(e);
 		}
 
 	}

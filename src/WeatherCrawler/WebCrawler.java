@@ -73,7 +73,7 @@ public class WebCrawler {
 				// "jdbc:mysql://mysqldb:3306/mi",
 				// "mi",
 				// "miws16"
-				"jdbc:mysql://172.17.0.1:3307/mi", "root", "mi-gruppe1");
+				"jdbc:mysql://172.17.0.1:3307/mi", "mi", "miws16");
 
 		String query = " insert into crawledWeatherData (weatherIcon, weatherDesc, weatherDescDetail, stationName, temperature, humidity, pressure, windDeg, windSpeed, dateTime)"
 				+ " values (?, ?, ?, ?, ?, ?, ?, ?, ?, ?)";
