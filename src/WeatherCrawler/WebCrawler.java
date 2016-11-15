@@ -19,6 +19,8 @@ import java.sql.SQLException;
 import org.json.JSONException;
 import org.json.JSONObject;
 
+import com.mashape.unirest.http.Unirest;
+import com.mashape.unirest.http.exceptions.UnirestException;
 import com.mysql.jdbc.Connection;
 
 import java.util.Date;
@@ -60,6 +62,10 @@ public class WebCrawler {
 		}
 	}
 
+	public void sendToDB() throws UnirestException {
+		Unirest.post("http://localhost:4567/newWeatherData").body(json).asString();
+	}
+	
 	/*
 	 * Input-Parameter is JSONArray. Iterate through the array and print needed
 	 * Information
