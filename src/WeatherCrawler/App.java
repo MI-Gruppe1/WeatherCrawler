@@ -7,6 +7,8 @@ package WeatherCrawler;
 import java.util.Timer;
 import java.util.TimerTask;
 
+import org.json.JSONObject;
+
 public class App extends TimerTask {
 	// Fancy api call der uns die daten in celsius ausgibt
 	String[] urlArray = {"http://api.openweathermap.org/data/2.5/weather?id=2911288&appid=92b7bce4aa80a16d6e28c89cbac02736&units=metric", //Hamburg mitte
@@ -32,12 +34,13 @@ public class App extends TimerTask {
 
 	@Override
 	public void run() {
-		WebCrawler crawler;
+		WebCrawler crawler = new WebCrawler();
 		for (String url : urlArray) {
 			try {
-				crawler = new WebCrawler(url);
+				JSONObject fetchedJSON = crawler.readJsonFromUrl(url);
+				JSONObject parsedJSON = crawler.parseJSON(fetchedJSON);
 				// crawler.persistData();
-				crawler.sendToDB();
+				crawler.sendToDB(parsedJSON);
 			} catch (Exception e) {
 				System.out.println(e);
 				// MailNotification.sendMail(e);
