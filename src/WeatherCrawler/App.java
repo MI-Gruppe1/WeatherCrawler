@@ -10,18 +10,22 @@ import java.util.TimerTask;
 import org.json.JSONObject;
 
 public class App extends TimerTask {
-	// Fancy api call der uns die daten in celsius ausgibt
-	String[] urlArray = {"http://api.openweathermap.org/data/2.5/weather?id=2911288&appid=92b7bce4aa80a16d6e28c89cbac02736&units=metric", //Hamburg mitte
-			"http://api.openweathermap.org/data/2.5/weather?id=2841374&appid=92b7bce4aa80a16d6e28c89cbac02736&units=metric",	//Sasel
-			"http://api.openweathermap.org/data/2.5/weather?id=6694704&appid=92b7bce4aa80a16d6e28c89cbac02736&units=metric",	//Rothenburgsort
-			"http://api.openweathermap.org/data/2.5/weather?id=2910685&appid=92b7bce4aa80a16d6e28c89cbac02736&units=metric",	//Harburg
-			"http://api.openweathermap.org/data/2.5/weather?id=7290243&appid=92b7bce4aa80a16d6e28c89cbac02736&units=metric",	//Bergedorf
-			"http://api.openweathermap.org/data/2.5/weather?id=2862026&appid=92b7bce4aa80a16d6e28c89cbac02736&units=metric",	//Norderstedt
-			"http://api.openweathermap.org/data/2.5/weather?id=2853658&appid=92b7bce4aa80a16d6e28c89cbac02736&units=metric",	//Pinneberg
-			"http://api.openweathermap.org/data/2.5/weather?id=2813464&appid=92b7bce4aa80a16d6e28c89cbac02736&units=metric",	//Wedel
-			"http://api.openweathermap.org/data/2.5/weather?id=2919880&appid=92b7bce4aa80a16d6e28c89cbac02736&units=metric",	//Glinde
-			"http://api.openweathermap.org/data/2.5/weather?id=2959083&appid=92b7bce4aa80a16d6e28c89cbac02736&units=metric",	//Ahrensburg
-			"http://api.openweathermap.org/data/2.5/weather?id=2911285&appid=92b7bce4aa80a16d6e28c89cbac02736&units=metric"}; //Wandsbek
+	// Fancy api call der uns die daten in celsius ausgibt (Anfang und Ende, dazwischen muss die ID)
+	String apiCallFirstPart = "http://api.openweathermap.org/data/2.5/weather?id=";
+	String apiCallSecondPart = "&appid=92b7bce4aa80a16d6e28c89cbac02736&units=metric";
+	
+	//IDs der einzelnen Stationen
+	String[] idArray = {"2911288", //Hamburg mitte
+			"2841374",	//Sasel
+			"6694704",	//Rothenburgsort
+			"2910685",	//Harburg
+			"7290243",	//Bergedorf
+			"2862026",	//Norderstedt
+			"2853658",	//Pinneberg
+			"2813464",	//Wedel
+			"2919880",	//Glinde
+			"2959083",	//Ahrensburg
+			"2911285"}; //Wandsbek
 	
 
 	public static void main(String[] args) {
@@ -35,11 +39,14 @@ public class App extends TimerTask {
 	@Override
 	public void run() {
 		WebCrawler crawler = new WebCrawler();
-		for (String url : urlArray) {
+		for (String id : idArray) {
 			try {
-				JSONObject fetchedJSON = crawler.readJsonFromUrl(url);
-				JSONObject parsedJSON = crawler.parseJSON(fetchedJSON);
+				System.out.println("Fetching");
+				JSONObject fetchedJSON = crawler.readJsonFromUrl(apiCallFirstPart + id + apiCallSecondPart);
+				System.out.println("Parsing");
+				String parsedJSON = crawler.parseJSON(fetchedJSON);
 				// crawler.persistData();
+				System.out.println("Sending");
 				crawler.sendToDB(parsedJSON);
 			} catch (Exception e) {
 				System.out.println(e);

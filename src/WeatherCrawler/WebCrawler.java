@@ -23,6 +23,8 @@ import com.mashape.unirest.http.Unirest;
 import com.mashape.unirest.http.exceptions.UnirestException;
 import com.mysql.jdbc.Connection;
 
+import com.google.gson.Gson;
+
 import java.util.Date;
 
 public class WebCrawler {
@@ -54,7 +56,7 @@ public class WebCrawler {
 		return sb.toString();
 	}
 
-	public JSONObject parseJSON(JSONObject fetchedJSON) throws JSONException {
+	public String parseJSON(JSONObject fetchedJSON) throws JSONException {
 		JSONObject desc = fetchedJSON.getJSONArray("weather").getJSONObject(0);
 		JSONObject coord = fetchedJSON.getJSONObject("coord");
 		JSONObject main = fetchedJSON.getJSONObject("main");
@@ -71,16 +73,11 @@ public class WebCrawler {
 		int windDeg = Integer.parseInt(wind.get("deg").toString());
 		double windSpeed = Double.parseDouble(wind.get("speed").toString());
 		long dateTime = new Date().getTime();
-		
 		WeatherDataObject weatherDataObject = new WeatherDataObject(weatherIcon, weatherDesc, weatherDescDetail, stationName, longitude, latitude, temperature, humidity, pressure, windDeg, windSpeed, dateTime);
-		
-		JSONObject parsedJSON = new JSONObject();
-		parsedJSON.getJSONObject(weatherDataObject.toJSON());
-		
-		return parsedJSON;
+		return weatherDataObject.toJSON();
 	}
 
-	public void sendToDB(JSONObject json) throws UnirestException {
+	public void sendToDB(String json) throws UnirestException {
 		Unirest.post("http://localhost:4567/newWeatherData").body(json).asString();
 	}
 
