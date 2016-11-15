@@ -36,7 +36,8 @@ public class App extends TimerTask {
 		for (String url : urlArray) {
 			try {
 				crawler = new WebCrawler(url);
-				crawler.persistData();
+				// crawler.persistData();
+				crawler.sendToDB();
 			} catch (Exception e) {
 				System.out.println(e);
 				// MailNotification.sendMail(e);
