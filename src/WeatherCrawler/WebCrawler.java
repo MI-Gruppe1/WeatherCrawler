@@ -72,7 +72,6 @@ public class WebCrawler {
 	 */
 	public void persistData()
 			throws JSONException, InstantiationException, IllegalAccessException, ClassNotFoundException, SQLException {
-
 		Class.forName("com.mysql.jdbc.Driver").newInstance();
 		Connection connection = (Connection) DriverManager.getConnection(
 				//Original statement
@@ -81,8 +80,8 @@ public class WebCrawler {
 				// "miws16"
 				"jdbc:mysql://172.17.0.1:3307/mi", "mi", "miws16");
 
-		String query = " insert into crawledWeatherData (weatherIcon, weatherDesc, weatherDescDetail, stationName, temperature, humidity, pressure, windDeg, windSpeed, dateTime)"
-				+ " values (?, ?, ?, ?, ?, ?, ?, ?, ?, ?)";
+		String query = " insert into crawledWeatherData (weatherIcon, weatherDesc, weatherDescDetail, stationName, longitude, latitude, temperature, humidity, pressure, windDeg, windSpeed, dateTime)"
+				+ " values (?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?)";
 		
 		// Schnitstelle:
 		// 
@@ -96,14 +95,17 @@ public class WebCrawler {
 		preparedStmt.setString(2, desc.get("main").toString());
 		preparedStmt.setString(3, desc.get("description").toString());
 		preparedStmt.setString(4, json.getString("name"));
+		JSONObject coord = json.getJSONObject("coord");
+		preparedStmt.setString(5, coord.getString("lon"));
+		preparedStmt.setString(6, coord.getString("lat"));
 		JSONObject main = json.getJSONObject("main");
-		preparedStmt.setString(5, main.get("temp").toString());
-		preparedStmt.setString(6, main.get("humidity").toString());
-		preparedStmt.setString(7, main.get("pressure").toString());
+		preparedStmt.setString(7, main.get("temp").toString());
+		preparedStmt.setString(8, main.get("humidity").toString());
+		preparedStmt.setString(9, main.get("pressure").toString());
 		JSONObject wind = json.getJSONObject("wind");
-		preparedStmt.setString(8, wind.get("deg").toString());
-		preparedStmt.setString(9, wind.get("speed").toString());
-		preparedStmt.setString(10, String.valueOf(new Date().getTime()));
+		preparedStmt.setString(10, wind.get("deg").toString());
+		preparedStmt.setString(11, wind.get("speed").toString());
+		preparedStmt.setString(12, String.valueOf(new Date().getTime()));
 		
 
 		// execute the preparedstatement
