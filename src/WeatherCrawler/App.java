@@ -32,8 +32,7 @@ public class App extends TimerTask {
 
 		/* Create Timer. Timer will execute every hour. */
 		Timer timer = new Timer();
-//		timer.schedule(new App(), 1000, 3600000);
-		timer.schedule(new App(), 1000, 10000);
+		timer.schedule(new App(), 1000, 3600000);
 	}
 
 	/**

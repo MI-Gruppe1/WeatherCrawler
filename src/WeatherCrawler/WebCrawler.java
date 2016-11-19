@@ -88,6 +88,6 @@ public class WebCrawler {
 	 * @throws UnirestException
 	 */
 	public void sendToDB(String json) throws UnirestException {
-		Unirest.post("http://localhost:4567/newWeatherData").body(json).asString();
+		Unirest.post("http://172.17.0.1:4568/newWeatherData").body(json).asString();
 	}
 }
