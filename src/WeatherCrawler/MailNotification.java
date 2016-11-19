@@ -1,3 +1,9 @@
+/**
+ * @author Jan-Peter Petersen
+ * @version 1.0
+ * thanks to Flah-Uddin Ahmad and Andreas Loeffler
+ */
+
 package WeatherCrawler;
 
 import java.io.PrintWriter;
@@ -6,12 +12,16 @@ import java.io.StringWriter;
 import org.apache.commons.mail.EmailException;
 import org.apache.commons.mail.SimpleEmail;
 
+/**
+ * MailNotification will send an E-Mail to miweatherservice(at)gmail.com
+ */
+
 public class MailNotification {
 	  private static final String SMTP_HOST = "smtp.gmail.com";
 	  private static final int SMTP_PORT = 465;
 	  
-	  private static final String USERNAME = "mi.mailnotification@gmail.com";
-	  private static final String PASSWORD = "miws2016";
+	  private static final String USERNAME = "miweatherservice@gmail.com";
+	  private static final String PASSWORD = "!miws-16";
 	  
 	  static void sendMail(Exception e) {
 		  StringWriter sw = new StringWriter();
@@ -24,12 +34,13 @@ public class MailNotification {
 			    email.setDebug(true);
 			    email.setSmtpPort(SMTP_PORT);
 			    email.setSSLOnConnect(true);
-				email.addTo("mi.mailnotification@googlemail.com");
-				email.setFrom(USERNAME, "WeatherCrawlerService");
+				email.addTo(USERNAME);
+				email.setFrom(USERNAME, "WeatherDBService");
 			    email.setSubject("Exception");
 			    email.setMsg(sw.toString());
 			    email.send();
 			} catch (EmailException e1) {
+				// TODO Auto-generated catch block
 				e1.printStackTrace();
 			}
 	  }
