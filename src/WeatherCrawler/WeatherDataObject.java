@@ -21,7 +21,7 @@ public class WeatherDataObject {
 	private int pressure;
 	private int windDeg;
 	private double windSpeed;
-	private long dateTime;
+	private long timeStamp;
 
 	/**
 	 * Will construct a new WeatherDataObject and fill it with the given values
@@ -35,11 +35,11 @@ public class WeatherDataObject {
 	 * @param pressure
 	 * @param windDeg
 	 * @param windSpeed
-	 * @param dateTime
+	 * @param timeStamp
 	 */
 	public WeatherDataObject(String weatherIcon, String weatherDesc, String weatherDescDetail, String stationName,
 			double longitude, double latitude, double temperature, int humidity, int pressure, int windDeg,
-			double windSpeed, long dateTime) {
+			double windSpeed, long timeStamp) {
 		super();
 		this.weatherIcon = weatherIcon;
 		this.weatherDesc = weatherDesc;
@@ -52,7 +52,7 @@ public class WeatherDataObject {
 		this.pressure = pressure;
 		this.windDeg = windDeg;
 		this.windSpeed = windSpeed;
-		this.dateTime = dateTime;
+		this.timeStamp = timeStamp;
 	}
 
 	/**
@@ -122,7 +122,7 @@ public class WeatherDataObject {
 		return windSpeed;
 	}
 
-	public long getDateTime() {
-		return dateTime;
+	public long getTimeStamp() {
+		return timeStamp;
 	}
 }
