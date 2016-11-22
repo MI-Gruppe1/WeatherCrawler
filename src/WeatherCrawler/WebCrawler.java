@@ -74,7 +74,7 @@ public class WebCrawler {
 		int pressure = Integer.parseInt(main.get("pressure").toString());
 		int windDeg = Integer.parseInt(wind.get("deg").toString());
 		double windSpeed = Double.parseDouble(wind.get("speed").toString());
-		long dateTime = new Date().getTime();
+		long dateTime = System.currentTimeMillis() / 1000L;
 		WeatherDataObject weatherDataObject = new WeatherDataObject(weatherIcon, weatherDesc, weatherDescDetail,
 				stationName, longitude, latitude, temperature, humidity, pressure, windDeg, windSpeed, dateTime);
 		return weatherDataObject.toJSON();
