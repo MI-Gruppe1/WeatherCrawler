@@ -1,5 +1,10 @@
 # WeatherCrawler
 
+## ToDo
+* transmit complete crawl in one json to WeatherDBService
+* unittests
+* fix Exceptions
+
 ## Known Issues
 org.json.JSONException: JSONObject["deg"] not found.
 	at org.json.JSONObject.get(JSONObject.java:498)
