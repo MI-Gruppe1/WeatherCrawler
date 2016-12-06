@@ -19,8 +19,6 @@ import org.json.JSONObject;
 import com.mashape.unirest.http.Unirest;
 import com.mashape.unirest.http.exceptions.UnirestException;
 
-import java.util.Date;
-
 public class WebCrawler {
 
 	/**
@@ -72,7 +70,7 @@ public class WebCrawler {
 		double temperature = Double.parseDouble(main.get("temp").toString());
 		int humidity = Integer.parseInt(main.get("humidity").toString());
 		int pressure = Integer.parseInt(main.get("pressure").toString());
-		int windDeg = Integer.parseInt(wind.get("deg").toString());
+		double windDeg = Double.parseDouble(wind.get("deg").toString());
 		double windSpeed = Double.parseDouble(wind.get("speed").toString());
 		long dateTime = System.currentTimeMillis() / 1000L;
 		WeatherDataObject weatherDataObject = new WeatherDataObject(weatherIcon, weatherDesc, weatherDescDetail,
