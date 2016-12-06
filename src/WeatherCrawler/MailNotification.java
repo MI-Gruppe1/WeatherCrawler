@@ -35,7 +35,7 @@ public class MailNotification {
 			    email.setSmtpPort(SMTP_PORT);
 			    email.setSSLOnConnect(true);
 				email.addTo(USERNAME);
-				email.setFrom(USERNAME, "WeatherDBService");
+				email.setFrom(USERNAME, "WeatherCrawler");
 			    email.setSubject("Exception");
 			    email.setMsg(sw.toString());
 			    email.send();
