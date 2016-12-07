@@ -46,7 +46,9 @@ public class App extends TimerTask {
 			try {
 				JSONObject fetchedJSON = crawler.readJsonFromUrl(apiCallFirstPart + id + apiCallSecondPart);
 				String parsedJSON = crawler.parseJSON(fetchedJSON);
+//				System.out.println(parsedJSON);
 				crawler.sendToDB(parsedJSON);
+				Thread.sleep(1000); //Otherwise the DBService is overwhelmed
 			} catch (Exception e) {
 				System.out.println(e);
 				MailNotification.sendMail(e);
