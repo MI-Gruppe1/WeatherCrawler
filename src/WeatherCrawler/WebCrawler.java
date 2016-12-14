@@ -70,9 +70,11 @@ public class WebCrawler {
 		double temperature = Double.parseDouble(main.get("temp").toString());
 		int humidity = Integer.parseInt(main.get("humidity").toString());
 		int pressure = Integer.parseInt(main.get("pressure").toString());
-		double windDeg = Double.parseDouble(wind.get("deg").toString());
+		String optionalWindDeg = wind.optString("deg"); // is optional
+		double windDeg = (optionalWindDeg.equals("")) ? 0 : Double.parseDouble(optionalWindDeg);
 		double windSpeed = Double.parseDouble(wind.get("speed").toString());
 		long dateTime = System.currentTimeMillis() / 1000L;
+
 		WeatherDataObject weatherDataObject = new WeatherDataObject(weatherIcon, weatherDesc, weatherDescDetail,
 				stationName, longitude, latitude, temperature, humidity, pressure, windDeg, windSpeed, dateTime);
 		return weatherDataObject.toJSON();
