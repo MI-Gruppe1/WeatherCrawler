@@ -1,18 +1,19 @@
-FROM java:8-alpine
+#FROM java:8-alpine
+FROM openjdk:8 
 
 # Install maven
-#RUN apt-get clean && apt-get update
-#RUN apt-get install -y maven
+RUN apt-get clean && apt-get update
+RUN apt-get install -y maven
 
 WORKDIR /code
 
 # Adding Mavendependencies
-#ADD pom.xml /code/pom.xml
+ADD pom.xml /code/pom.xml
 
 # Adding source folder
-#ADD src /code/src
+ADD src /code/src
 
-ADD target /code/target
+#ADD target /code/target
 # Load all dependencies and create a fat jar
 #RUN ["mvn", "install"]
 

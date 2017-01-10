@@ -9,6 +9,9 @@ import java.util.TimerTask;
 
 import org.json.JSONObject;
 
+/**
+ * starts the app 
+ */
 public class App extends TimerTask {
 	// Fancy api call der uns die daten in celsius ausgibt (Anfang und Ende,
 	// dazwischen muss die ID)
@@ -46,8 +49,8 @@ public class App extends TimerTask {
 			try {
 				JSONObject fetchedJSON = crawler.readJsonFromUrl(apiCallFirstPart + id + apiCallSecondPart);
 				String parsedJSON = crawler.parseJSON(fetchedJSON);
-//				System.out.println(parsedJSON);
-				crawler.sendToDB(parsedJSON);
+				System.out.println(parsedJSON);
+//				crawler.sendToDB(parsedJSON);
 				Thread.sleep(1000); //Otherwise the DBService is overwhelmed
 			} catch (Exception e) {
 				System.out.println(e);
